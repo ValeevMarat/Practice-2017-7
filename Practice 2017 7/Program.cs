@@ -66,19 +66,13 @@ namespace Practice_2017_7
             Console.WriteLine("Вектора нелинейных булевых функций от 3-х аргументов:");
             for (int i = 0; i < Math.Pow(2, 8); i++)
             {
-                vector[0] = i / 128 % 2 != 0;                                                            // Изменение векторов в зависимсоти от i
-                vector[1] = i / 64 % 2 != 0;
-                vector[2] = i / 32 % 2 != 0;
-                vector[3] = i / 16 % 2 != 0;
-                vector[4] = i / 8 % 2 != 0;
-                vector[5] = i / 4 % 2 != 0;
-                vector[6] = i / 2 % 2 != 0;
-                vector[7] = i % 2 != 0;
+                for (int j = 0, k = (int)Math.Pow(2, 7); j < vector.Length; j++, k/=2)
+                    vector[j]= i / k % 2 != 0;
 
-                if ((vector[0] ? 1 : 0) + (vector[1] ? 1 : 0) + (vector[2] ? 1 : 0) +
+                if (((vector[0] ? 1 : 0) + (vector[1] ? 1 : 0) + (vector[2] ? 1 : 0) +
                     (vector[3] ? 1 : 0) + (vector[4] ? 1 : 0) + (vector[5] ? 1 : 0) +
-                    (vector[6] ? 1 : 0) + (vector[7] ? 1 : 0) != vector.Length / 2) WriteVector(vector); // Если кол-во true и false различны, значит вектор 100% не линеен
-                else if (!IsVectorLinear(vector)) WriteVector(vector);                                   // Иначе проверяем на линейность и выписываем, если оказался нелинейным
+                    (vector[6] ? 1 : 0) + (vector[7] ? 1 : 0)) % 2!=0) WriteVector(vector); // У линейных ф-ий среди значений нулей и единиц всегда четное число
+                else if (!IsVectorLinear(vector)) WriteVector(vector);                      // Иначе проверяем на линейность и выписываем, если оказался нелинейным
             }
             Console.ReadKey();
         } // Выводит все нелинейные вектора от 3-х аргументов
